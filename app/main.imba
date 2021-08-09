@@ -1,7 +1,10 @@
 let projects\{
 	uuid: string,
 	repo: string
-}[] = JSON.parse(localStorage.getItem('projects') ?? '[]')
+}[] = JSON.parse(localStorage.getItem 'projects' or '[]')
+
+const del = indexedDB.deleteDatabase.bind(window.indexedDB)
+const set = localStorage.setItem.bind(localStorage)
 
 def uuid
 	crypto.getRandomValues(new Uint32Array(5))[0].toString(36)
@@ -29,11 +32,12 @@ tag moller-ide
 				<h1> "Welcome to mollerIDE."
 				<form @submit.prevent=(do
 					const id = uuid!
-					projects = [...projects, {
-						repo: $name.value,
+					projects = [
+						...projects,
+						repo: $name.value
 						uuid: id
-					}]
-					window.localStorage.setItem('projects', JSON.stringify(projects))
+					]
+					set 'projects', JSON.stringify(projects)
 					project = {
 						repo: $name.value,
 						uuid: id
@@ -44,12 +48,9 @@ tag moller-ide
 				for project in projects
 					<article.project @click.self=project=project>
 						<button.action @click.log('removed', project)=(do
-							def filter p
-								p.uuid isnt project.uuid
-							
-							projects = projects.filter(filter)
-							window.localStorage.setItem('projects', JSON.stringify(projects))
-							window.indexedDB.deleteDatabase(project.uuid)
-							window.indexedDB.deleteDatabase(project.uuid + '_lock')
+							projects = projects.filter do(p) p.uuid isnt project.uuid
+							set 'projects', JSON.stringify(projects)
+							del project.uuid
+							del "{project.uuid}_lock"
 						)> "Delete"
 						project.repo

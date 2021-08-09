@@ -7,7 +7,7 @@ const app = express!
 app.get(/.*/) do(req,res)
 	# only render the html for requests that prefer an html response
 	unless req.accepts(['image/*', 'html']) is 'html'
-		return res.sendStatus(404)
+		return res.sendStatus 404
 
 	res.send index.body
 

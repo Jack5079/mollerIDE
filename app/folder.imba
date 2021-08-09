@@ -1,5 +1,5 @@
 import LightningFS from '@isomorphic-git/lightning-fs'
-import p from '@isomorphic-git/lightning-fs/src/path'
+import {resolve} from '@isomorphic-git/lightning-fs/src/path'
 import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
 
 tag folder
@@ -31,13 +31,13 @@ tag folder
 					<img alt=name width="23" height="23" src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{getIconForFolder(name)}">
 				name
 			
-			const files\string[] = await fs.promises.readdir(path)
+			const files\string[] = await fs.promises.readdir path
 
 			for file in files
 				<li>
-					const stat = await fs.promises.stat(p.resolve(path, file))
+					const stat = await fs.promises.stat resolve(path, file)
 					if stat.type == 'dir'
-						<folder path=p.resolve(path, file) name=file fs=fs>
+						<folder path=resolve(path, file) name=file fs=fs>
 					else
 						<img alt=file width="23" height="23" src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type === 'dir' ? getIconForFolder(file) : getIconForFile(file)}">
 						file

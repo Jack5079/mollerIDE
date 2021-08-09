@@ -44,8 +44,8 @@ tag editor
 		width:70%
 
 	def awaken
-		fs = new LightningFS(project.uuid)
-		files = await fs.promises.readdir('/')
+		fs = new LightningFS project.uuid
+		files = await fs.promises.readdir '/'
 		if !files.length
 			git.clone({
 				http,
@@ -54,7 +54,6 @@ tag editor
 				url: project.repo,
 				corsProxy: 'https://cors.isomorphic-git.org',
 				onProgress: do(event)
-					console.log(event)
 					phase = event.phase
 					if event.total
 						progress = event.loaded / event.total
@@ -65,12 +64,11 @@ tag editor
 					msgs = [...msgs,msg]
 					imba.commit!
 			}).then(do
-				files = await fs.promises.readdir('/')
+				files = await fs.promises.readdir '/'
 				imba.commit!
-			).catch(do(err)
+			).catch do(err)
 				error = err
 				imba.commit!
-			)
 		
 		imba.commit!
 
