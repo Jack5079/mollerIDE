@@ -1,0 +1,20 @@
+{
+  "name": "moller-ide",
+  "scripts": {
+    "start": "imba -w server.imba",
+    "build": "imba build server.imba"
+  },
+  "dependencies": {
+    "@isomorphic-git/lightning-fs": "github:isomorphic-git/lightning-fs",
+    "express": "^4.17.1",
+    "imba": "^2.0.0-alpha.146",
+    "isomorphic-git": "^1.9.2",
+    "vscode-icons-js": "^11.1.0"
+  },
+  "repository": "mollersuite/mollerIDE",
+  "description": "Yet another web text editor",
+  "version": "1.0.0",
+  "homepage": "https://github.com/mollersuite/mollerIDE",
+  "author": "moller software (https://github.com/mollersuite)",
+  "license": "ISC"
+}
