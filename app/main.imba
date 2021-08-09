@@ -3,11 +3,11 @@ let projects\{
 	repo: string
 }[] = JSON.parse(localStorage.getItem 'projects' or '[]')
 
-const del = indexedDB.deleteDatabase.bind(window.indexedDB)
-const set = localStorage.setItem.bind(localStorage)
+const del = indexedDB.deleteDatabase.bind indexedDB
+const set = localStorage.setItem.bind localStorage
 
 def uuid
-	crypto.getRandomValues(new Uint32Array(5))[0].toString(36)
+	crypto.getRandomValues(new Uint32Array(5))[0].toString 36
 
 tag moller-ide
 	prop project
@@ -37,7 +37,7 @@ tag moller-ide
 						repo: $name.value
 						uuid: id
 					]
-					set 'projects', JSON.stringify(projects)
+					set 'projects', JSON.stringify projects
 					project = {
 						repo: $name.value,
 						uuid: id
@@ -49,7 +49,7 @@ tag moller-ide
 					<article.project @click.self=project=project>
 						<button.action @click.log('removed', project)=(do
 							projects = projects.filter do(p) p.uuid isnt project.uuid
-							set 'projects', JSON.stringify(projects)
+							set 'projects', JSON.stringify projects
 							del project.uuid
 							del "{project.uuid}_lock"
 						)> "Delete"
