@@ -7,26 +7,22 @@ tag folder
 	prop name = ''
 	prop fs\LightningFS
 
-	css li
-		list-style: none
-
-	css summary, li d:flex a:center
-	css img mr:5
 	css 
+		.item tween:background .3s cursor:pointer bg:none @hover:gray8 @focus:gray7
+		li w:100% list-style: none us:none
+		img mr:5
 		details
 			&:not(.root)
 				& > *:not(summary)
-					padding-left: 1em
-	css .root
-		& > summary 
+					pl:1em
+		summary 
 			list-style: none
+			&::-webkit-details-marker
+				d:none
 
-		& > summary::-webkit-details-marker
-			d:none
-		
 	<self>
 		<details.root=(path is '/') open=(path is '/')>
-			<summary>
+			<summary.item>
 				if path isnt '/'
 					<img alt=name width="23" height="23" src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{folder_icon name}">
 				name
@@ -34,9 +30,9 @@ tag folder
 			const files\string[] = await fs.promises.readdir path
 
 			for file in files
-				<li>
-					const stat = await fs.promises.stat resolve path, file
-					if stat.type == 'dir'
+				const stat = await fs.promises.stat resolve path, file
+				<li.item=(stat.type is 'file')>
+					if stat.type is 'dir'
 						<folder path=resolve(path, file) name=file fs=fs>
 					else
 						<img alt=file width="23" height="23" src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{file_icon file}">

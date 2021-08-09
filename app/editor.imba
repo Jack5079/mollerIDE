@@ -19,29 +19,27 @@ tag editor
 	prop phase\string = 'Getting ready'
 	prop progress\number
 
-	css pre
-		margin:0
-	css nav
-		bg:gray9
-		overflow:auto
-		h:100%
-		pos:fixed
-		top:0
-		left:0
-		width:30%
-		padding-left: 1em
-	
-	css textarea
-		bg:gray8
-		c:white
-		resize:none
-		overflow:auto
-		h:100%
-		pos:fixed
-		top:0
-		left:30%
-		border:0
-		width:70%
+	css
+		pre m:0
+		nav
+			bg:gray9
+			overflow:auto
+			h:100%
+			pos:fixed
+			top:0
+			left:0
+			width:30%
+		textarea
+			bg:gray8
+			c:white
+			resize:none
+			overflow:auto
+			h:100%
+			pos:fixed
+			top:0
+			left:30%
+			border:0
+			width:70%
 
 	def awaken
 		fs = new LightningFS project.uuid
