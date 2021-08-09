@@ -12,6 +12,10 @@ tag moller-ide
 	css
 		.project d:block p:2 ta:left mr:0 bg:gray8 mb:2 cursor:pointer bxs:md
 		.action mr:2
+		form
+			d:flex
+			input[type="url"]
+				flg:1
 		div
 			max-width:800px
 			m:auto
@@ -36,7 +40,7 @@ tag moller-ide
 					}
 				)>
 					<input$name type="url" required placeholder="A git repo">
-					<input type="submit" value="New">
+					<input type="submit" value="Clone repo">
 				for project in projects
 					<article.project @click.self=project=project>
 						<button.action @click.log('removed', project)=(do
