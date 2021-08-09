@@ -7,13 +7,20 @@ tag editor
 		uuid: string,
 		repo: string
 	}
+
 	prop fs\LightningFS
 	prop files\string[] = []
+
+	# Clone repo stuff
 	prop msgs\string[] = []
+	prop error\string = ''
 
-	css code
-		d:block
+	# Loading bar
+	prop phase\string = 'Getting ready'
+	prop progress\number
 
+	css pre
+		margin:0
 	css nav
 		bg:gray9
 		overflow:auto
@@ -24,6 +31,18 @@ tag editor
 		width:30%
 		padding-left: 1em
 	
+	css textarea
+		bg:gray8
+		c:white
+		resize:none
+		overflow:auto
+		h:100%
+		pos:fixed
+		top:0
+		left:30%
+		border:0
+		width:70%
+
 	def awaken
 		fs = new LightningFS(project.uuid)
 		files = await fs.promises.readdir('/')
@@ -34,11 +53,22 @@ tag editor
 				dir: '/',
 				url: project.repo,
 				corsProxy: 'https://cors.isomorphic-git.org',
-				onMessage: def pain msg
+				onProgress: do(event)
+					console.log(event)
+					phase = event.phase
+					if event.total
+						progress = event.loaded / event.total
+					else
+						progress = undefined
+					imba.commit!
+				onMessage: do(msg)
 					msgs = [...msgs,msg]
 					imba.commit!
 			}).then(do
 				files = await fs.promises.readdir('/')
+				imba.commit!
+			).catch(do(err)
+				error = err
 				imba.commit!
 			)
 		
@@ -46,10 +76,18 @@ tag editor
 
 	def render
 		<self>
-			if files.length
+			if error
+				<h1> "Error while cloning repo!"
+				<pre> String error
+			elif files.length
 				<nav>
 					<folder fs=fs>
+				<textarea>
 			else
-				<h1> "Cloning repo..."
+				<h1> "{phase}..."
+				if progress isnt undefined
+					<progress min=0 max=1 value=progress>
+				else
+					<progress min=0 max=1>
 				for msg in msgs
-					<code> msg
+					<pre> msg
