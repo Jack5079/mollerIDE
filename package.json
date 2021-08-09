@@ -16,5 +16,9 @@
   "version": "1.0.0",
   "homepage": "https://github.com/mollersuite/mollerIDE",
   "author": "moller software (https://github.com/mollersuite)",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.4.13"
+  }
 }
