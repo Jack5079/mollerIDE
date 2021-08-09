@@ -1,3 +1,9 @@
+global css
+	html ff:sans c:white bg:black
+	* scrollbar-width:thin
+
+import './editor'
+
 let projects\{
 	uuid: string,
 	repo: string
@@ -57,3 +63,5 @@ tag moller-ide
 							del "{project.uuid}_lock"
 						)> "Delete"
 						project.repo
+
+imba.mount <moller-ide>
