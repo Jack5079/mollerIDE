@@ -3,7 +3,7 @@ import git from 'isomorphic-git'
 import http from 'isomorphic-git/http/web/index.js'
 import './folder.imba'
 tag editor
-	prop project\{
+	prop project \{
 		uuid: string,
 		repo: string
 	}
@@ -42,6 +42,13 @@ tag editor
 			width:70%
 
 	def awaken
+		def check p
+			console.log(route.params.id, p.uuid)
+			p.uuid is route.params.id
+		project = {
+			uuid: route.params.id,
+			repo: JSON.parse(window.localStorage.getItem('projects')).find(check).repo
+		}
 		fs = new LightningFS project.uuid
 		files = await fs.promises.readdir '/'
 		if !files.length
@@ -71,7 +78,7 @@ tag editor
 		imba.commit!
 
 	def render
-		<self>
+		<self route="/project/:id">
 			if error
 				<h1> "Error while cloning repo!"
 				<pre> String error
