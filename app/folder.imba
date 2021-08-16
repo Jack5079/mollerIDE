@@ -5,7 +5,7 @@ import { getIconForFile as file_icon, getIconForFolder as folder_icon } from 'vs
 tag folder
 	prop path = '/'
 	prop name = ''
-	prop fs\LightningFS
+	fs\LightningFS = undefined
 
 	css 
 		.item tween:background .3s cursor:pointer bg:none @hover:gray8 @focus:gray7

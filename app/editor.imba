@@ -8,16 +8,16 @@ tag editor
 		repo: string
 	}
 
-	prop fs\LightningFS
-	prop files\string[] = []
+	fs\LightningFS
+	files\string[] = []
 
 	# Clone repo stuff
-	prop msgs\string[] = []
-	prop error\string = ''
+	msgs\string[] = []
+	error\string = ''
 
 	# Loading bar
-	prop phase\string = 'Getting ready'
-	prop progress\number
+	phase\string = 'Getting ready'
+	progress\number = 0
 
 	css
 		pre m:0
